@@ -1,15 +1,15 @@
-# Avbuddy
+# seal
 
 # Environment Setup
 
-## Clone Avbuddy
+## Clone seal
 ```
-$git clone https://github.com/ghoo1125/avbuddy 
+$git clone https://github.com/ghoo1125/seal
 ```
 
 ## Create python3 virtual environment
 ```
-$cd avbuddy
+$cd seal
 $python3 -m venv .venv
 $source .venv/bin/activate # or use vscode to select correct venv
 ```
@@ -22,7 +22,7 @@ $(venv) pip install -r requirements.txt
 
 # Run Server in Local
 ```
-$(venv) avbuddy.server:app --port 8080 --reload
+$(venv) uvicorn seal.server:app --port 8080 --reload
 ```
 
 Then you can see the result by typing localhost:8080 at your browser.
