@@ -19,7 +19,7 @@ parser = WebhookParser(LINE_CHANNEL_SECRET)
 
 @app.post("/seal")
 async def line_post(request: Request, x_line_signature: Optional[str] = Header(None)):
-    body = (await request.body()).decode('utf-8')
+body = (await request.body()).decode('utf-8')
 
     try:
         events = parser.parse(body, x_line_signature)
