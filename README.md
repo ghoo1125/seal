@@ -22,7 +22,7 @@ $(venv) pip install -r requirements.txt
 
 # Run Server in Local
 ```
-$(venv) uvicorn src.main.python.avbuddy:app --port 8080 --reload
+$(venv) avbuddy.server:app --port 8080 --reload
 ```
 
 Then you can see the result by typing localhost:8080 at your browser.
