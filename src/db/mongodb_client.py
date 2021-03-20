@@ -21,7 +21,7 @@ class MongoClientFactory():
                       str(MongoClientFactory.__PORT)],
                 serverSelectionTimeoutMS=3000,  # 3 second timeout
             )
-            print("server version:", self.client.server_info()["version"])
+            print("initialize mongo client")
         except errors.ServerSelectionTimeoutError as err:
             self.client = None
             print("pymongo ERROR:", err)
