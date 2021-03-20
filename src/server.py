@@ -7,6 +7,8 @@ from linebot.exceptions import InvalidSignatureError, LineBotApiError
 from linebot.models import Event, MessageEvent, TextSendMessage
 from pydantic import BaseModel, validator
 
+from .command_handler import CommandHandler
+
 app = FastAPI()
 
 # TODO hide tokens
@@ -30,9 +32,12 @@ async def line_post(request: Request, x_line_signature: Optional[str] = Header(N
 
     for event in events:
         if isinstance(event, MessageEvent):
+            handler = CommandHandler()
+            resp_msg = handler.handle(event.source.user_id, event.message.text)
+
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=event.message.text)
+                TextSendMessage(text=resp_msg)
             )
 
     return JSONResponse(status_code=status.HTTP_200_OK)
