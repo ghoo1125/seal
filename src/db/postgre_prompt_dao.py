@@ -30,8 +30,12 @@ class PromptDao():
     def getPromptByUser(self, user_id):
         self.cursor.execute(f"SELECT user_id, hints FROM prompt WHERE user_id = '{user_id}'")
         self.conn.commit()
-        v1, v2 = self.cursor.fetchone()
-        return {"user_id": v1,  "hints": json.loads(v2)}
+        prompt = self.cursor.fetchone()
+        if prompt is None:
+            return {"user_id": user_id, "hints": []}
+        else:
+            v1, v2 = prompt
+            return {"user_id": v1,  "hints": json.loads(v2)}
 
     def deletePromptByUser(self, user_id):
         self.cursor.execute("DELETE FROM prompt WHERE user_id = %s", user_id)
