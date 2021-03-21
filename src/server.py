@@ -17,7 +17,6 @@ LINE_CHANNEL_SECRET = 'eebfd0d4235b4b810559a217471546f2'
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 parser = WebhookParser(LINE_CHANNEL_SECRET)
-handler = CommandHandler()
 
 @app.post("/seal")
 async def line_post(request: Request, x_line_signature: Optional[str] = Header(None)):
@@ -32,6 +31,7 @@ async def line_post(request: Request, x_line_signature: Optional[str] = Header(N
 
     for event in events:
         if isinstance(event, MessageEvent):
+            handler = CommandHandler()
             msg = ""
             if (event.message.type == "text"):
                 msg = event.message.text
