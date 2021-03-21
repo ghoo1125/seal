@@ -5,7 +5,6 @@ from fastapi.responses import JSONResponse
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
 from linebot.models import Event, MessageEvent, TextSendMessage
-from pydantic import BaseModel, validator
 
 from .command_handler import CommandHandler
 
@@ -17,6 +16,7 @@ LINE_CHANNEL_SECRET = 'eebfd0d4235b4b810559a217471546f2'
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 parser = WebhookParser(LINE_CHANNEL_SECRET)
+
 
 @app.post("/seal")
 async def line_post(request: Request, x_line_signature: Optional[str] = Header(None)):
