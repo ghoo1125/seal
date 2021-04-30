@@ -17,7 +17,6 @@ LINE_CHANNEL_SECRET = 'eebfd0d4235b4b810559a217471546f2'
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 parser = WebhookParser(LINE_CHANNEL_SECRET)
 
-
 @app.post("/seal")
 async def line_post(request: Request, x_line_signature: Optional[str] = Header(None)):
     body = (await request.body()).decode('utf-8')
@@ -43,3 +42,7 @@ async def line_post(request: Request, x_line_signature: Optional[str] = Header(N
             )
 
     return JSONResponse(status_code=status.HTTP_200_OK)
+
+@app.get('/items/{item_id}')
+def read_item(item_id: int, q: Optional[str] = None):
+    return {"item_id": item_id, "q": q}
