@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from fastapi import Body, FastAPI, Header, Request, status
+from fastapi import Body, FastAPI, Header, Request, status, Response
 from fastapi.responses import JSONResponse
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
@@ -44,5 +44,6 @@ async def line_post(request: Request, x_line_signature: Optional[str] = Header(N
     return JSONResponse(status_code=status.HTTP_200_OK)
 
 @app.get('/items/{item_id}')
-def read_item(item_id: int, q: Optional[str] = None):
+def read_item(item_id: int, response: Response, q: Optional[str] = None):
+    response.headers["Access-Control-Allow-Origin"] = "*"
     return {"item_id": item_id, "q": q}
