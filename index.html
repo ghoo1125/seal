@@ -1,0 +1,17 @@
+<html>
+<body>
+    <button type="button" onclick="test()">click me</button>
+    <p id="demo">initial value</p>
+</body>
+<script>
+    async function test() {
+        let jsonResp = await fetch('https://seal-line-messaging.herokuapp.com/items/10?q=somquery')
+        .then(res => {
+            return res.json();
+        }).catch(err => {
+            console.log(err);
+        });
+        document.getElementById('demo').innerHTML = JSON.stringify(jsonResp);
+    }
+</script>
+</html>
