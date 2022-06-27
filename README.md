@@ -1,5 +1,5 @@
 # seal
-Line Bot API with FastAPI server deployed on Heroku
+Line Bot with Messaging API and FastAPI server deployed on Heroku
 
 # Environment Setup
 
@@ -31,9 +31,9 @@ Then you can see the result by typing localhost:8080 at your browser.
 ```
 $(venv) ngrok http 8080
 ```
-Then goto line message api page to update the webhook with ngrok forwarding url.
+Then goto Line Messaging API page to update the webhook with ngrok forwarding url.
 
-## Run local mongodb server with docker
+## Run local mongodb server with docker (deprecated)
 ```
 $docker-compose -f docker/docker-compose.yaml up -d
 ```
@@ -44,3 +44,7 @@ $docker-compose -f docker/docker-compose.yaml up -d
 ```
 pip freeze > requirements.txt
 ```
+
+# CI/CD
+
+Once PR is merged into master branch, it will trigger github actions and deployed to heroku after tests are all passed. The application is served on dynamic port decided by heroku default 443 for HTTPS.
