@@ -38,6 +38,12 @@ Then goto Line Messaging API page to update the webhook with ngrok forwarding ur
 $docker-compose -f docker/docker-compose.yaml up -d
 ```
 
+## Run local postgres
+Install heroku CLI then server will connect to local database automatically
+```
+brew tap heroku/brew && brew install heroku
+```
+
 # Developemnt
 
 ## Generate requirements.txt after adding new pacakge
