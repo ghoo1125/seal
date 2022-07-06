@@ -41,7 +41,7 @@ async def line_post(request: Request, x_line_signature: Optional[str] = Header(N
                 TextSendMessage(text=resp_msg)
             )
 
-    return JSONResponse(status_code=status.HTTP_200_OK)
+    return JSONResponse("OK", status_code=status.HTTP_200_OK)
 
 @app.get('/items/{item_id}')
 def read_item(item_id: int, response: Response, q: Optional[str] = None):

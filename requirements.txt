@@ -2,3 +2,7 @@ uvicorn
 fastapi
 line-bot-sdk
 psycopg2-binary
+pytest
+autopep8
+pytest-mock
+pytest-asyncio

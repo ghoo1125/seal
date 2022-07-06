@@ -51,6 +51,11 @@ brew tap heroku/brew && brew install heroku
 pip freeze > requirements.txt
 ```
 
+## Unit tests
+```
+pytest
+```
+
 # CI/CD
 
 Once PR is merged into master branch, it will trigger github actions and deployed to heroku after tests are all passed. The application is served on dynamic port decided by heroku default 443 for HTTPS.

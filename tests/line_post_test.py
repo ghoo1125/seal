@@ -1,8 +1,7 @@
 from asyncio import coroutine
 
 import pytest
-from fastapi import Request, status
-
+from fastapi import status
 from src.server import line_post
 
 
