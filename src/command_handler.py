@@ -2,14 +2,16 @@ from .db.postgre_prompt_dao import PromptDao
 
 
 class CommandHandler():
-    DEFAULT_MESSAGE ='''Available commands:
-    !show
-        show all Q&As
-    !add q/a
-        overwrite answer if question already exists else add a new Q&A
-    !delete [q/a]
-        delete specific Q&A or delete all Q&As if not specified
-    '''
+    DEFAULT_MESSAGE = '''Available commands:
+!show !S
+    show all Q&As
+
+!add !A q/a
+    overwrite answer if question already exists else add a new Q&A
+
+!delete !D [q/a]
+    delete specific Q&A or delete all Q&As if not specified
+'''
 
     def __init__(self, dao=None):
         self.dao = dao if dao else PromptDao()
@@ -23,14 +25,14 @@ class CommandHandler():
     def handle(self, user_id, msg):
         resp = CommandHandler.DEFAULT_MESSAGE
         cmd, args = self.parse_command(msg)
-        if cmd == "!show":
+        if cmd == "!show" or cmd == "!S":
             resp = "Your questions and answers:\n"
             prompt = self.dao.getPromptByUser(user_id)
             for hint in prompt.get("hints", []):
                 resp = resp + "question: " + \
                     hint["question"] + "\n" + \
                     "answer: " + hint["answer"] + "\n"
-        elif cmd == "!add":
+        elif cmd == "!add" or cmd == "!A":
             qalist = args.split("/")
             if len(qalist) == 2:
                 prompt = self.dao.getPromptByUser(user_id)
@@ -45,7 +47,7 @@ class CommandHandler():
                 resp = f"question: {qalist[0]}, answer: {qalist[1]} added"
             else:
                 resp = "invalid q/a format, please input again"
-        elif cmd == "!delete":
+        elif cmd == "!delete" or cmd == "!D":
             qalist = args.split("/")
             if not args:
                 self.dao.deletePromptByUser(user_id)
