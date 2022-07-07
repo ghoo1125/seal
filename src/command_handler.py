@@ -2,14 +2,13 @@ from .db.postgre_prompt_dao import PromptDao
 
 
 class CommandHandler():
-    DEFAULT_MESSAGE = '''
-Available commands:
+    DEFAULT_MESSAGE ='''Available commands:
     !show
-        show Q&A
+        show all Q&As
     !add q/a
-        add Q&A
-    !delete q/a
-        delete Q&A
+        overwrite answer if question already exists else add a new Q&A
+    !delete [q/a]
+        delete specific Q&A or delete all Q&As if not specified
     '''
 
     def __init__(self, dao=None):
