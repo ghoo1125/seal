@@ -52,8 +52,13 @@ pip freeze > requirements.txt
 ```
 
 ## Unit tests
+Run all unit tests
 ```
 pytest
+```
+Run specific test
+```
+pytest tests/command_handler_test.py
 ```
 
 # CI/CD

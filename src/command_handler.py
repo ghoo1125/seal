@@ -3,19 +3,19 @@ from .db.postgre_prompt_dao import PromptDao
 
 class CommandHandler():
     DEFAULT_MESSAGE = '''
-    Available commands:
-        !show
-            show Q&A
-        !add q/a
-            add Q&A
-        !delete q/a
-            delete Q&A
+Available commands:
+    !show
+        show Q&A
+    !add q/a
+        add Q&A
+    !delete q/a
+        delete Q&A
     '''
 
-    def __init__(self):
-        self.dao = PromptDao()
+    def __init__(self, dao=None):
+        self.dao = dao if dao else PromptDao()
 
-    def parse_msg(self, msg):
+    def parse_command(self, msg):
         space = msg.find(" ")
         cmd = msg[:space] if space != -1 else msg
         args = msg[space+1:] if space != -1 else ""
@@ -31,8 +31,8 @@ class CommandHandler():
                 resp = resp + "question: " + \
                     hint["question"] + "\n" + \
                     "answer: " + hint["answer"] + "\n"
-        elif cmd == "!add":  # ADD
-            qalist = cmd.split("/")
+        elif cmd == "!add":
+            qalist = args.split("/")
             if len(qalist) == 2:
                 prompt = self.dao.getPromptByUser(user_id)
                 for hint in prompt["hints"]:
@@ -43,15 +43,21 @@ class CommandHandler():
                     new_hint = {"question": qalist[0], "answer": qalist[1]}
                     prompt["hints"].append(new_hint)
                 self.dao.savePrompt(prompt)
-                resp = "q/a added"
+                resp = f"question: {qalist[0]}, answer: {qalist[1]} added"
+            else:
+                resp = "invalid q/a format, please input again"
         elif cmd == "!delete":
-            qalist = cmd.split("/")
-            if len(qalist) == 2:
+            qalist = args.split("/")
+            if not args:
+                self.dao.deletePromptByUser(user_id)
+                resp = "all q/a deleted"
+            elif len(qalist) == 2:
                 prompt = self.dao.getPromptByUser(user_id)
                 filtered_hints = filter(lambda hint: not (hint["question"] == qalist[0]
                                                           and hint["answer"] == qalist[1]), prompt["hints"])
                 prompt["hints"] = list(filtered_hints)
                 self.dao.savePrompt(prompt)
-                resp = "q/a deleted"
-
+                resp = f"question: {qalist[0]}, answer: {qalist[1]} deleted"
+            else:
+                resp = "invalid q/a format, please input again"
         return resp
