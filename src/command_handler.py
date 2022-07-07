@@ -44,7 +44,7 @@ class CommandHandler():
                     new_hint = {"question": qalist[0], "answer": qalist[1]}
                     prompt["hints"].append(new_hint)
                 self.dao.savePrompt(prompt)
-                resp = f"question: {qalist[0]}, answer: {qalist[1]} added"
+                resp = f"question: {qalist[0]}, answer: {qalist[1]}\nadded"
             else:
                 resp = "invalid q/a format, please input again"
         elif cmd == "!delete" or cmd == "!D":
@@ -58,7 +58,7 @@ class CommandHandler():
                                                           and hint["answer"] == qalist[1]), prompt["hints"])
                 prompt["hints"] = list(filtered_hints)
                 self.dao.savePrompt(prompt)
-                resp = f"question: {qalist[0]}, answer: {qalist[1]} deleted"
+                resp = f"question: {qalist[0]}, answer: {qalist[1]}\ndeleted"
             else:
                 resp = "invalid q/a format, please input again"
         return resp

@@ -17,7 +17,7 @@ def test_handle_success(mocker):
     mock_dao.getPromptByUser.return_value = {
         "hints": [{"question": "q1", "answer": "a1"}]}
     actual = handler.handle("user_123", msg)
-    assert actual == "question: q2, answer: a2 added"
+    assert actual == "question: q2, answer: a2\nadded"
     mock_dao.savePrompt.assert_called_with(
         {"hints": [{"question": "q1", "answer": "a1"}, {"question": "q2", "answer": "a2"}]})
 
@@ -26,7 +26,7 @@ def test_handle_success(mocker):
     mock_dao.getPromptByUser.return_value = {
         "hints": [{"question": "q1", "answer": "a1"}]}
     actual = handler.handle("user_123", msg)
-    assert actual == "question: q1, answer: a123 added"
+    assert actual == "question: q1, answer: a123\nadded"
     mock_dao.savePrompt.assert_called_with(
         {"hints": [{"question": "q1", "answer": "a123"}]})
 
@@ -38,7 +38,7 @@ def test_handle_success(mocker):
     mock_dao.getPromptByUser.return_value = {
         "hints": [{"question": "q1", "answer": "a1"}]}
     actual = handler.handle("user_123", msg)
-    assert actual == "question: q1, answer: a1 deleted"
+    assert actual == "question: q1, answer: a1\ndeleted"
     mock_dao.savePrompt.assert_called_with({"hints": []})
 
     msg = "!delete"
