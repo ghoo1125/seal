@@ -26,12 +26,15 @@ class CommandHandler():
         resp = CommandHandler.DEFAULT_MESSAGE
         cmd, args = self.parse_command(msg)
         if cmd == "!show" or cmd == "!S":
-            resp = "Your questions and answers:\n"
-            prompt = self.dao.getPromptByUser(user_id)
-            for hint in prompt.get("hints", []):
-                resp = resp + "question: " + \
-                    hint["question"] + "\n" + \
-                    "answer: " + hint["answer"] + "\n"
+            if args:
+                resp = "invalid args, please input again"
+            else:
+                resp = "Your questions and answers:\n"
+                prompt = self.dao.getPromptByUser(user_id)
+                for hint in prompt.get("hints", []):
+                    resp = resp + "question: " + \
+                        hint["question"] + "\n" + \
+                        "answer: " + hint["answer"] + "\n"
         elif cmd == "!add" or cmd == "!A":
             qalist = args.split("/")
             if len(qalist) == 2:

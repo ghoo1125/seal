@@ -13,6 +13,10 @@ def test_handle_success(mocker):
     actual = handler.handle("user_123", msg)
     assert actual.startswith("Your questions and answers:")
 
+    msg = "!show abc"
+    actual = handler.handle("user_123", msg)
+    assert actual == "invalid args, please input again"
+
     msg = "!add q2/a2"
     mock_dao.getPromptByUser.return_value = {
         "hints": [{"question": "q1", "answer": "a1"}]}
